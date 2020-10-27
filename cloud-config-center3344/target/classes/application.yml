@@ -1,0 +1,30 @@
+server:
+  port: 3344
+
+spring:
+  application:
+    name: cloud-config-center
+  cloud:
+    config:
+      server:
+        git:
+          #这里使用html链接  如果使用SSH的话需要配置密钥
+          uri: https://gitee.com/showanswer/springcloud-config.git
+          ###搜索目录
+          search-paths:
+            - springcloud-config
+          # 这里如果仓库是私有仓库的话就需要  设置用户密码 公有仓库不需要
+          #username: showanswer
+          #password: xqaini99.
+      ###读取分枝
+      label: master
+      #profile: dev
+
+##将服务注册到eureka服务中心
+eureka:
+  client:
+    #配置Config到eureka 作为服务器配置  不是客户端  这里 是服务注册中心和server一样  不能自己吧自己当作客户端来注册
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defalutZone: http://localhost:7001/eureka

@@ -1,0 +1,35 @@
+
+#8401 是这个请求这个服务的端口口号
+server:
+  port: 8401
+
+
+spring:
+  application:
+    name: cloudalibaba-sentinel-service
+  cloud:
+    nacos:
+      discovery:
+        #nacos服务注册中心   8848是nacos的都安口号
+        server-addr: localhost:8848
+    sentinel:
+      transport:
+        #配置sentinel dashboard地址  sentinel的端口号8080监控8401
+        dashboard: localhost:8080
+        #默认端口8719，加入被占用则从8719开始+1扫描，知道找到没有被占用的端口
+        port: 8719
+      datasource:
+        dsl:
+          nacos:
+            server-add: localhost:8080
+            dataId: cloudalibaba-sentinel-service
+            groupId: DEFAULT_GROUP
+            data-type: json
+            rule-type: flow
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
